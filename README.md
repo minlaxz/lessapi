@@ -1,4 +1,4 @@
-# 👷 `worker-serverless-api` like Hello, World!
+## 👷 `worker-serverless-api` like Hello, World!
 
 This is a Cloudflare worker project.
 
