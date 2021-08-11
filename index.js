@@ -8,6 +8,8 @@ addEventListener('fetch', event => {
 async function handleRequest(request) {
   const body = await request.json()
   return new Response(JSON.stringify(body), {
-    headers: { 'content-type': 'application/json' },
+    headers: {
+      'Content-type': 'application/json'
+    },
   })
 }
