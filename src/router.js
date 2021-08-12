@@ -2,10 +2,11 @@ import { Router } from 'itty-router'
 
 const router = Router()
 
+/* .me domain is not stable */
 const corsHeaders = {
     'Access-Control-Allow-Headers': 'X-Requested-With,Content-Type,Accept',
     'Access-Control-Allow-Methods': 'GET,POST,PUT,DELETE,OPTIONS',
-    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Origin': 'github.minlaxz.me',
 }
 
 const getImages = async request => {
