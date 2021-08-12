@@ -6,7 +6,7 @@ const router = Router()
 const corsHeaders = {
     'Access-Control-Allow-Headers': 'X-Requested-With,Content-Type,Accept',
     'Access-Control-Allow-Methods': 'GET,POST,PUT,DELETE,OPTIONS',
-    'Access-Control-Allow-Origin': 'github.minlaxz.me',
+    'Access-Control-Allow-Origin': 'https://github.minlaxz.me',
 }
 
 const getImages = async request => {
