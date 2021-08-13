@@ -13,15 +13,15 @@ module.exports = {
         extensions: ['.ts', '.tsx', '.js'],
         plugins: [],
     },
-    module: {
-        rules: [
-            {
-                test: /\.tsx?$/,
-                loader: 'ts-loader',
-                options: {
-                    transpileOnly: true,
-                },
-            },
-        ],
-    },
+    // module: {
+    //     rules: [
+    //         {
+    //             test: /\.tsx?$/,
+    //             loader: 'ts-loader',
+    //             options: {
+    //                 transpileOnly: true,
+    //             },
+    //         },
+    //     ],
+    // },
 }
