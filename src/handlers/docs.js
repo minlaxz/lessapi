@@ -1,6 +1,7 @@
 const returnData = [
     { "POST /api/images": "query=cat" },
-    { "GET /api/encode/": "your_text_to_encode" },
+    { "GET /api/encode/": "your_text" },
+    { "GET /api/github/lastcommit": "repo?any_repo" }
 ]
 
 const Docs = () => {

@@ -1,6 +1,7 @@
 import { Router } from 'itty-router'
 import Docs from './handlers/docs'
 import Encode from './handlers/encode'
+import { GetLastCommit } from './handlers/github'
 import Home from './handlers/home'
 import { CORSOptions, PostImage } from './handlers/images'
 
@@ -14,9 +15,9 @@ router
   )
   .get('/api', Docs)
   .get('/api/encode/:text', Encode)
-
-router.options('/api/images', CORSOptions)
-router.post('/api/images', PostImage)
-router.all('*', () => new Response('404, not found!', { status: 404 }))
+  .get('/api/github/:action', GetLastCommit)
+  .options('/api/images', CORSOptions)
+  .post('/api/images', PostImage)
+  .all('*', () => new Response('404, not found!', { status: 404 }))
 
 export const handleRequest = (request) => router.handle(request)
