@@ -47,9 +47,12 @@ const badRequest = () => {
 }
 
 export const GetLastCommit = async (request) => {
+    const user = request.query?.user === null ? "minlaxz" : request.query.user
+    const branch = request.query?.brach === null ? "main" : request.query.brach
+    const repo = request.query?.repo === null ? "" : request.query.repo
     if (request.method === "GET") {
-        if (request.params.action === "lastcommit" && JSON.stringify(request.query) !== '{}' && request.query.repo) {
-            const response = await fetch(`https://api.github.com/repos/minlaxz/${request.query.repo}/branches/main`, {
+        if (request.params.action === "lastcommit" && JSON.stringify(request.query) !== '{}' && request.query.repo === "") {
+            const response = await fetch(`https://api.github.com/repos/minlaxz/${repo}/branches/main`, {
                 headers: { "User-Agent": "HTTPie/1.0.3" }, /* curl/7.68.0 */
             })
             if (response.status === 200) {
