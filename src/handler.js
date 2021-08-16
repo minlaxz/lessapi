@@ -15,7 +15,7 @@ router
   )
   .get('/api', Docs)
   .get('/api/encode/:text', Encode)
-  .get('/api/github/:action', GetLastCommit)
+  .get('/api/github/:action', WtfOnThisCommit)
   .options('/api/images', CORSOptions)
   .post('/api/images', PostImage)
   .all('*', () => new Response('404, not found!', { status: 404 }))

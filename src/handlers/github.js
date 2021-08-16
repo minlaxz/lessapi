@@ -45,10 +45,11 @@ const badRequest = () => {
     })
 }
 
-export const GetLastCommit = async (request) => {
-    const user = request.query.user ? request.query.user : "minlaxz"
-    const branch = request.query.branch ? request.query.branch : "main"
-    const repo = request.query.repo ? request.query.repo : null
+export const WtfOnThisCommit = async (request) => {
+    let { repo, user, branch } = request.query
+    !user && (user = "minlaxz")
+    !branch && (branch = "main")
+    !repo && (repo = null) /* is this too much 👻 */
     if (request.method === "GET") {
         if (request.params.action === "lastcommit" && JSON.stringify(request.query) !== '{}' && repo) {
             const response = await fetch(`https://api.github.com/repos/${user}/${repo}/branches/${branch}`, {
