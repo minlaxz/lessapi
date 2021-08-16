@@ -13,16 +13,16 @@ module.exports = {
         extensions: ['.ts', '.tsx', '.js'],
         plugins: [],
     },
-    module: {
-        rules: [
-            {
-                // test: /\.js?$/,
-                loader: "babel-loader",
-                // exclude: /node_modules/,
-                // options: {
-                //     transpileOnly: true,
-                // },
-            },
-        ],
-    },
+    // module: {
+    // rules: [
+    // {
+    // test: /\.js?$/,
+    // loader: "babel-loader",
+    // exclude: /node_modules/,
+    // options: {
+    //     transpileOnly: true,
+    // },
+    // },
+    // ],
+    // },
 }

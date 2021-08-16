@@ -9,8 +9,7 @@ async function gatherResponse(response) {
     const contentType = headers.get("content-type") || ""
     if (contentType.includes("application/json")) {
         const data = await response.json()
-
-        return JSON.stringify(data.commit.sha)
+        return data.commit.sha
     }
     else if (contentType.includes("application/text")) {
         return response.text()
@@ -47,17 +46,23 @@ const badRequest = () => {
 }
 
 export const GetLastCommit = async (request) => {
-    const user = request.query?.user === null ? "minlaxz" : request.query.user
-    const branch = request.query?.brach === null ? "main" : request.query.brach
-    const repo = request.query?.repo === null ? "" : request.query.repo
+    const user = request.query.user ? request.query.user : "minlaxz"
+    const branch = request.query.branch ? request.query.branch : "main"
+    const repo = request.query.repo ? request.query.repo : null
     if (request.method === "GET") {
-        if (request.params.action === "lastcommit" && JSON.stringify(request.query) !== '{}' && request.query.repo === "") {
-            const response = await fetch(`https://api.github.com/repos/minlaxz/${repo}/branches/main`, {
+        if (request.params.action === "lastcommit" && JSON.stringify(request.query) !== '{}' && repo) {
+            const response = await fetch(`https://api.github.com/repos/${user}/${repo}/branches/${branch}`, {
                 headers: { "User-Agent": "HTTPie/1.0.3" }, /* curl/7.68.0 */
             })
             if (response.status === 200) {
                 const results = await gatherResponse(response)
-                return new Response(results, {
+                const returnData = {
+                    ghUser: user,
+                    ghBranch: branch,
+                    ghRepo: repo,
+                    sha: results
+                }
+                return new Response(JSON.stringify(returnData), {
                     headers: {
                         "Content-Type": "application/json",
                         ...corsHeaders
