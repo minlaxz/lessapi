@@ -34,8 +34,9 @@ const notFoundonGithub = () => {
 const badRequest = () => {
     const response = {
         "message": "bad request",
-        "params": "github/lastcommit",
-        "query": "?repo=some_repo"
+        "example": "/api/github/lastcommit?repo=somerepo&user=user&branch=branch",
+        "defaults": "user - minlaxz, branch - main",
+        "required": "repo"
     }
     return new Response(JSON.stringify(response), {
         headers: {
@@ -45,35 +46,32 @@ const badRequest = () => {
     })
 }
 
-export const WtfOnThisCommit = async (request) => {
+export const LastCommit = async (request) => {
     let { repo, user, branch } = request.query
     !user && (user = "minlaxz")
     !branch && (branch = "main")
-    !repo && (repo = null) /* is this too much 👻 */
-    if (request.method === "GET") {
-        if (request.params.action === "lastcommit" && JSON.stringify(request.query) !== '{}' && repo) {
-            const response = await fetch(`https://api.github.com/repos/${user}/${repo}/branches/${branch}`, {
-                headers: { "User-Agent": "HTTPie/1.0.3" }, /* curl/7.68.0 */
-            })
-            if (response.status === 200) {
-                const results = await gatherResponse(response)
-                const returnData = {
-                    ghUser: user,
-                    ghBranch: branch,
-                    ghRepo: repo,
-                    sha: results
-                }
-                return new Response(JSON.stringify(returnData), {
-                    headers: {
-                        "Content-Type": "application/json",
-                        ...corsHeaders
-                    }, status: 200
-                })
-            } else {
-                return notFoundonGithub()
+    !repo && (badRequest()) /* what u gonna do without this ? 😕 */
+    if (request.params.action === "lastcommit" && JSON.stringify(request.query) !== '{}' && repo) {
+        const response = await fetch(`https://api.github.com/repos/${user}/${repo}/branches/${branch}`, {
+            headers: { "User-Agent": "HTTPie/1.0.3" }, /* curl/7.68.0 */
+        })
+        if (response.status === 200) {
+            const results = await gatherResponse(response)
+            const returnData = {
+                ghUser: user,
+                ghBranch: branch,
+                ghRepo: repo,
+                sha: results
             }
+            return new Response(JSON.stringify(returnData), {
+                headers: {
+                    "Content-Type": "application/json",
+                    ...corsHeaders
+                }, status: 200
+            })
+        } else {
+            return notFoundonGithub()
         }
-
-        return badRequest()
     }
+    return badRequest()
 }
