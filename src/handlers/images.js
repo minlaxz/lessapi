@@ -1,7 +1,7 @@
 const corsHeaders = {
     'Access-Control-Allow-Headers': 'X-Requested-With,Content-Type,Accept',
     'Access-Control-Allow-Methods': 'GET,POST,PUT,DELETE,OPTIONS',
-    'Access-Control-Allow-Origin': 'https://minlaxz.github.me',
+    'Access-Control-Allow-Origin': 'https://minlaxz.github.io',
 }
 
 const getImages = async request => {
